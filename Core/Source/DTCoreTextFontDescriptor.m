@@ -169,7 +169,12 @@ static BOOL _needsChineseFontCascadeFix = NO;
 	{
 		NSString *usedFontFamily = CFBridgingRelease(CTFontCopyFamilyName(font));
 		
-		if ([usedFontFamily isEqualToString:fontFamily])
+		//iOS 10 public beta 2 returns .AppleSystemUIFont when the system font family is used
+		if ([usedFontFamily isEqualToString:@".AppleSystemUIFont"])
+		{
+			isValid = YES;
+		}
+		else if ([usedFontFamily isEqualToString:fontFamily])
 		{
 			isValid = YES;
 		}
